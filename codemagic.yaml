@@ -8,3 +8,18 @@ triggers:
   - event:
       name: Push to master
       branch: master
+
+jobs:
+  build:
+    name: Build APK
+    scripts:
+      - name: Checkout code
+        script:
+          - echo "Checking out code"
+      - name: Build APK
+        script:
+          - echo "Building APK"
+          - ./gradlew assembleRelease
+
+artifacts:
+  - app/build/outputs/apk/release/app-release.apk

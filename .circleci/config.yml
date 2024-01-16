@@ -13,17 +13,11 @@ jobs:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
       - run:
-          name: Clean Gradle Wrapper
-          command: ./gradlew cleanWrapper
-      - run:
-          name: Download Gradle Wrapper
-          command: ./gradlew wrapper
-      - run:
           name: Create Local Properties
           command: echo "sdk.dir=$ANDROID_HOME" > local.properties
       - run:
           name: Accept Android SDK Licenses
-          command: echo y | sdkmanager --licenses
+          command: (yes || y || true) | sdkmanager --licenses
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies

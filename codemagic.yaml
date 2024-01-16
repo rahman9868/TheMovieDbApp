@@ -18,8 +18,8 @@ jobs:
           - echo "Checking out code"
       - name: Build APK
         script:
-          - echo "Building APK"
-          - ./gradlew assembleRelease
+          - cd TheMovieDbApp
+          - ./gradlew clean assembleRelease
 
 artifacts:
-  - app/build/outputs/apk/release/app-release.apk
+  - TheMovieDbApp/app/build/outputs/apk/release/app-release.apk

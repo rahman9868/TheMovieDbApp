@@ -3,11 +3,12 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
 }
 apply from: '../shared_dependencies.gradle'
 android {
     namespace 'com.example.movieapp'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.movieapp"

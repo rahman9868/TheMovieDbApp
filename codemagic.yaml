@@ -1,16 +1,42 @@
+
 workflows:
   build:
     name: Build and Test
     scripts:
-      - name: Set Android SDK location
+      - name: Checkout
+        script: git clone https://github.com/rahman9868/TheMovieDbApp.git
+
+      - name: Chmod permissions
+        script: chmod +x ./TheMovieDbApp/gradlew
+
+      - name: Create Local Properties
+        script: echo "sdk.dir=$ANDROID_HOME" > TheMovieDbApp/local.properties
+
+      - name: Accept Android SDK Licenses
+        script: (yes || true) | sdkmanager --licenses
+
+      - name: Download Dependencies
         script: |
-            echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
-      - name: Set up dependencies
-        script:
-            echo "org.gradle.java.home=/path/to/jdk17" >> gradle.properties
-            ./gradlew dependencies
-      - name: Build Debug APK
-        script: ./gradlew assembleDebug
+          echo "sdk.dir=$ANDROID_HOME" > TheMovieDbApp/local.properties
+          cd TheMovieDbApp
+          ./gradlew androidDependencies
+
+      - name: Run Build
+        script: ./TheMovieDbApp/gradlew build
+
+      - name: Store Artifacts
+        script: mv TheMovieDbApp/app/build/reports /tmp/reports
+
+      - name: Run Tests
+        script: ./TheMovieDbApp/gradlew lint test
+
+      - name: Store Test Results
+        script: mv TheMovieDbApp/app/build/test-results /tmp/test-results
+
+      - name: Store Artifacts
+        script: mv TheMovieDbApp/app/build/outputs/apk/debug /tmp/artifact-file
 
 artifacts:
-  - app/build/outputs/apk/debug/app-debug.apk
+  - /tmp/reports
+  - /tmp/test-results
+  - /tmp/artifact-file

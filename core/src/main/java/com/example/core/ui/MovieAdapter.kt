@@ -49,12 +49,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {
                 val roundedRating = Math.round(data.voteAverage * 2) / 2.0f
                 binding.tvRating.text = roundedRating.toString()
                 binding.crbRating.rating = roundedRating
-            }
-        }
 
-        init {
-            binding.root.setOnClickListener {
-                onItemClick?.invoke(listData[adapterPosition])
+                binding.root.setOnClickListener {
+                    onItemClick?.invoke(data)
+                }
             }
         }
     }

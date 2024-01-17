@@ -1,0 +1,14 @@
+workflows:
+  build:
+    name: Build and Test
+    scripts:
+      - name: Set Android SDK location
+        script: |
+            echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: Set up dependencies
+        script: ./gradlew dependencies
+      - name: Build Debug APK
+        script: ./gradlew assembleDebug
+
+artifacts:
+  - app/build/outputs/apk/debug/app-debug.apk

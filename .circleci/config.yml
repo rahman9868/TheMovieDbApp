@@ -1,6 +1,8 @@
 version: 2.1
+
 orbs:
   android: circleci/android@2.4.0
+
 jobs:
   build:
     docker:
@@ -20,7 +22,9 @@ jobs:
           command: (yes || true) | sdkmanager --licenses
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          command: |
+            echo "sdk.dir=$ANDROID_HOME" > local.properties
+            ./gradlew androidDependencies
       - save_cache:
           key: 'android-orb-v1-{{ epoch }}'
           paths:

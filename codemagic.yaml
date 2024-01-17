@@ -7,7 +7,6 @@ workflows:
             echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
       - name: Set up dependencies
         script:
-            export JAVA_HOME=/path/to/jdk17
             echo "org.gradle.java.home=/path/to/jdk17" >> gradle.properties
             ./gradlew dependencies
       - name: Build Debug APK

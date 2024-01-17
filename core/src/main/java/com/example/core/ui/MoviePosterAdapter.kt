@@ -41,12 +41,10 @@ class MoviePosterAdapter : RecyclerView.Adapter<MoviePosterAdapter.ListViewHolde
                 Glide.with(itemView.context)
                     .load("$BASE_IMAGE_URL${data.posterPath}")
                     .into(ivImagePoster)
-            }
-        }
 
-        init {
-            binding.root.setOnClickListener {
-                onItemClick?.invoke(listData[adapterPosition])
+                binding.root.setOnClickListener {
+                    onItemClick?.invoke(data)
+                }
             }
         }
     }
